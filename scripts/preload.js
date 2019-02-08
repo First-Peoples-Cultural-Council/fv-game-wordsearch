@@ -28,7 +28,6 @@ class Preload {
         this.game.load.setPreloadSprite(this.loadingBar);
 
         const config = this.config;
-        this.load.script('wordfind', config.libs.wordFindScript);
         this.load.image('tile',config.images.tile);
         this.load.image('playAudio',config.images.playAudio);
         this.load.image('background',config.images.background);

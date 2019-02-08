@@ -6,9 +6,6 @@
 *     http://github.com/bunkat/wordfind
 */
 
-(function () {
-
-  'use strict';
 
   /**
   * Generates a new word find (word search) puzzle provided a set of words.
@@ -485,13 +482,5 @@
     };
   };
 
-  /**
-  * Allow library to be used within both the browser and node.js
-  */
-  var root = typeof exports !== "undefined" && exports !== null ? exports : window;
-  root.wordfind = WordFind();
-
-}).call(this);
-
-
+  export default new WordFind();
 
