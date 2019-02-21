@@ -1,7 +1,7 @@
 {
-    "name": "fv-game-wordsearch",
+    "name": "@fpcc/fv-game-wordsearch",
     "version": "1.0.0",
-    "description": "",
+    "description": "Wordsearch game for FirstVoices.com",
     "main": "scripts/game.js",
     "scripts": {
       "develop": "webpack-dev-server --config webpack.config.js --progress --colors --content-base www/",
