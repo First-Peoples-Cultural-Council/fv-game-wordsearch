@@ -1,22 +1,24 @@
 import configManager from './config';
 
-class Preload {
+class Preload
+{
 
     init()
     {
         this.config = configManager.getConfig();
 
-        this.loadingBar = this.game.make.sprite(this.game.world.centerX , 500, "loading");
-        this.logo       = this.game.make.sprite(this.game.world.centerX, 250, 'brand');
-        this.status     = this.game.make.text(this.game.world.centerX, 450, 'Loading...', {fill: 'black'});
+        this.loadingBar = this.game.make.sprite(this.game.world.centerX, 500, "loading");
+        this.logo = this.game.make.sprite(this.game.world.centerX, 250, 'brand');
+        this.status = this.game.make.text(this.game.world.centerX, 450, 'Loading...', { fill: 'black' });
 
         this.centerObjects([this.logo, this.status, this.loadingBar]);
     }
 
     centerObjects(objects)
     {
-        objects.forEach((obj)=>{
-            obj.anchor.setTo(0.5,0.5);
+        objects.forEach((obj) =>
+        {
+            obj.anchor.setTo(0.5, 0.5);
         });
     }
 
@@ -28,19 +30,29 @@ class Preload {
         this.game.load.setPreloadSprite(this.loadingBar);
 
         const config = this.config;
-        this.load.image('tile',config.images.tile);
-        this.load.image('playAudio',config.images.playAudio);
-        this.load.image('background',config.images.background);
+        this.load.image('transp', config.images.transp);
+        this.load.image('tile', config.images.tile);
+        this.load.image('playAudio', config.images.playAudio);
+        this.load.image('background', config.images.background);
         this.load.image('title', config.images.title);
         this.load.image('welldone', config.images.welldone);
+        this.load.image('cloud', config.images.cloud);
+        this.load.image('rightArrow', config.images.rightArrow);
+        this.load.image('leftArrow', config.images.leftArrow);
 
-        config.words.forEach((word)=>{
-            this.load.audio(word.word, word.audio);
-            this.load.image(word.word, word.image)
-        });
+        for (var category in config.categories)
+        {
+            var words = config.categories[category];
+            
+            words.forEach((word) =>
+            {
+                this.load.audio(word.word, word.audio);
+                this.load.image(word.word, word.image)
+            });
+        }
     }
 
-    fade (nextState)
+    fade(nextState)
     {
         this.nextState = nextState;
 
@@ -76,8 +88,9 @@ class Preload {
     }
 
 
-    create(){
-        this.fade("Main");
+    create()
+    {
+        this.fade("Menu");
     }
 }
 

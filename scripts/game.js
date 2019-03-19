@@ -4,6 +4,7 @@ import GameTitle from './gametitle';
 import Main from './main';
 import GameOver from './gameover';
 import GameConfig from './config';
+import Menu from './menu';
 
 class Game
 {
@@ -26,6 +27,7 @@ class Game
         game.state.add("GameTitle", GameTitle);
         game.state.add("Main", Main);
         game.state.add("GameOver", GameOver);
+        game.state.add("Menu", Menu);
         game.state.start("Boot");
         
         this.game = game;

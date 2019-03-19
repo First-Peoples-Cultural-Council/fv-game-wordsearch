@@ -3,8 +3,10 @@ import wordfind from './libs/wordfind';
 
 class Main {
 
-    init(){
+    init(categoryWords){
 
+        this.words = categoryWords;
+        
         this.config = configManager.getConfig();
 
         //  This is your word list. Add or remove any words you like in here.
@@ -28,7 +30,7 @@ class Main {
         this.tileHeight = 100;
 
         //  The selection line color and thickness
-        this.drawLineColor = 0x00BAD2;
+        this.drawLineColor = 0x00000;
         this.drawLineAlpha = 0.6;
         this.drawLineThickness = 26;
 
@@ -59,7 +61,41 @@ class Main {
         this.featureWord = null;
         this.mapWords();
     }
+    
+    fadeIn()
+    {
+        const fadeBackground = this.game.add.graphics(0, 0);
+        fadeBackground.beginFill(0xFFFFFF, 1);
+        fadeBackground.drawRect(0, 0, this.game.width, this.game.height);
+        fadeBackground.alpha = 1;
+        fadeBackground.endFill();
 
+        const backgroundTween = this.game.add.tween(fadeBackground);
+        backgroundTween.to({ alpha: 0 }, 500, null);
+        backgroundTween.onComplete.add(()=>{
+            fadeBackground.destroy();
+        });
+        backgroundTween.start();        
+    }
+
+    menu()
+    {
+        const fadeBackground = this.game.add.graphics(0, 0);
+        fadeBackground.beginFill(0xFFFFFF, 1);
+        fadeBackground.drawRect(0, 0, this.game.width, this.game.height);
+        fadeBackground.alpha = 0;
+        fadeBackground.endFill();
+
+        const backgroundTween = this.game.add.tween(fadeBackground);
+        backgroundTween.to({ alpha: 1 }, 500, null);
+        backgroundTween.onComplete.add(()=>{
+            this.stage.backgroundColor = '#FFFFFF';
+            this.game.state.start("Menu");       
+        });
+        backgroundTween.start();     
+    }
+
+    
     getHighlightColour(){
 
         this.highlightIndex = ( this.highlightIndex + 1 ) % ( this.highlightTints.length - 1 );
@@ -71,7 +107,7 @@ class Main {
     {
         const wordMap = {};
         const wordsArray = [];
-        const words = this.config.words.slice(0,16);
+        const words = this.words.slice(0,16);
 
         let letters = this.letters;
 
@@ -115,20 +151,7 @@ class Main {
         }
 
     }
-
-    fadeIn()
-    {
-        var fadeBackground = this.game.add.graphics(0, 0);
-        fadeBackground.beginFill(0xFFFFFF, 1);
-        fadeBackground.drawRect(0, 0, this.game.width, this.game.height);
-        fadeBackground.alpha = 1;
-        fadeBackground.endFill();
-
-        const backgroundTween = this.game.add.tween(fadeBackground);
-        backgroundTween.to({ alpha: 0 }, 500, null);
-        backgroundTween.start();
-    }
-
+    
     create () {
 
         this.stage.backgroundColor = '#A5572C';
@@ -272,35 +295,35 @@ class Main {
         this.wellDone.centerX = this.world.centerX;
         this.wellDone.visible = false;
 
-        // this.fadeIn();
-        this.createRestartButton();
+        this.createMenuButton();
         this.createRevealSolution();
-
+        
+        this.fadeIn();
     }
 
-    createRestartButton()
+    createMenuButton()
     {
-        let restart = this.add.text(0,0, 'Restart');
-        restart.y = this.game.height - 40;
-        restart.anchor.set(0, 0);
-        restart.font = 'Arial';
-        restart.fontSize = 20;
-        restart.fill = '#FFFFFF';
-        restart.stroke = '#000000';
-        restart.strokeThickness = 3;
-        restart.x = 30
-        restart.inputEnabled = true;
-        restart.input.useHandCursor = true;
+        let menu = this.add.text(0,0, 'Back to Menu');
+        menu.y = this.game.height - 40;
+        menu.anchor.set(0, 0);
+        menu.font = 'Arial';
+        menu.fontSize = 20;
+        menu.fill = '#FFFFFF';
+        menu.stroke = '#000000';
+        menu.strokeThickness = 3;
+        menu.x = 30
+        menu.inputEnabled = true;
+        menu.input.useHandCursor = true;
 
-        restart.events.onInputDown.add(()=>{
-            restart.fill = '#000000';
-            restart.stroke = '#FFFFFF';
-            this.game.state.start("GameTitle");
-
+        menu.events.onInputDown.add(()=>{
+            menu.fill = '#000000';
+            menu.stroke = '#FFFFFF';
+            this.menu();
         })
-        restart.events.onInputUp.add(()=>{
-            restart.fill = '#FFFFFF';
-            restart.stroke = '#000000';
+        
+        menu.events.onInputUp.add(()=>{
+            menu.fill = '#FFFFFF';
+            menu.stroke = '#000000';
         })
     }
 
