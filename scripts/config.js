@@ -15,7 +15,9 @@ let defaultGameConfig = {
         welldone: 'assets/images/well-done.png',
         cloud: 'assets/images/cloud.png',
         rightArrow:'assets/images/right_arrow.png',
-        leftArrow:'assets/images/left_arrow.png'
+        leftArrow:'assets/images/left_arrow.png',
+        mute:'assets/images/mute.png',
+        unmute:'assets/images/unmute.png'
     },
 
     letters: [],

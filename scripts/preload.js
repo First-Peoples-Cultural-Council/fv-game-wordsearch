@@ -39,6 +39,8 @@ class Preload
         this.load.image('cloud', config.images.cloud);
         this.load.image('rightArrow', config.images.rightArrow);
         this.load.image('leftArrow', config.images.leftArrow);
+        this.load.image('unmute', config.images.unmute);
+        this.load.image('mute', config.images.mute);
 
         for (var category in config.categories)
         {

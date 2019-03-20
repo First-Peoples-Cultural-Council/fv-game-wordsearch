@@ -297,10 +297,39 @@ class Main {
 
         this.createMenuButton();
         this.createRevealSolution();
+        this.createMuteButton();
         
         this.fadeIn();
     }
 
+    createMuteButton() {
+
+        const unmuteButton = this.add.sprite(40, 40, 'unmute');
+        unmuteButton.anchor.setTo(0.5, 0.5);
+        unmuteButton.scale.setTo(0.3, 0.3);
+        unmuteButton.inputEnabled = true;
+        unmuteButton.visible = !this.game.sound.mute;
+        unmuteButton.input.useHandCursor = true;
+        
+        const muteButton = this.add.sprite(40, 40, 'mute');
+        muteButton.anchor.setTo(0.5, 0.5);
+        muteButton.scale.setTo(0.3, 0.3);
+        muteButton.inputEnabled = true;
+        muteButton.visible = this.game.sound.mute;
+        muteButton.input.useHandCursor = true;
+
+        unmuteButton.events.onInputUp.add(()=>{
+            muteButton.visible = true;
+            unmuteButton.visible = false;
+            this.game.sound.mute = false;
+        });
+        
+        muteButton.events.onInputDown.add(()=>{
+            unmuteButton.visible = true;
+            muteButton.visible = false;
+            this.game.sound.mute = true;
+        });
+    }
     createMenuButton()
     {
         let menu = this.add.text(0,0, 'Back to Menu');

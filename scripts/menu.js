@@ -1,9 +1,7 @@
 import configManager from './config';
 
-class Menu
-{
-    init()
-    {
+class Menu {
+    init() {
         this.config = configManager.getConfig();
         this.columns = 2
         this.rows = 3
@@ -13,9 +11,8 @@ class Menu
         this.categories = Object.keys(this.config.categories);
         this.pages = Math.ceil(this.categories.length / (this.rows * this.columns));
     }
-    
-    fadeIn()
-    {
+
+    fadeIn() {
         const fadeBackground = this.game.add.graphics(0, 0);
         fadeBackground.beginFill(0xFFFFFF, 1);
         fadeBackground.drawRect(0, 0, this.game.width, this.game.height);
@@ -24,29 +21,29 @@ class Menu
 
         const backgroundTween = this.game.add.tween(fadeBackground);
         backgroundTween.to({ alpha: 0 }, 500, null);
-        backgroundTween.onComplete.add(()=>{
+        backgroundTween.onComplete.add(() => {
             fadeBackground.destroy();
         });
-        backgroundTween.start();        
+        backgroundTween.start();
     }
 
-    
-    create()
-    {
+
+    create() {
         this.currentPage = 0;
-        
+
         const categories = this.categories;
         const rowLength = this.thumbWidth * this.columns + this.spacing * (this.columns - 1);
         const leftMargin = (this.game.width - rowLength) / 2;
         const colHeight = this.thumbHeight * this.columns + this.spacing * (this.columns - 1);
         const topMargin = (this.game.width - colHeight) / 2;
-        
+
         this.stage.backgroundColor = '#A5572C';
 
         this.createBackground();
         this.createNextButton();
         this.createPrevButton();
         this.createTitle();
+        this.createMuteButton();
 
         this.scrollingMap = this.game.add.tileSprite(0, 0, this.pages.length * this.game.width, this.game.height, "transp");
         this.pageText = this.game.add.text(this.game.width / 2, 150, "Select a Category (1 / " + this.pages + ")", { font: "30px Arial", fill: "#FFFFFF" })
@@ -57,8 +54,7 @@ class Menu
         let categoriesPerPage = (this.rows * this.columns);
         let page = 0;
 
-        for (var categoryIndex = 0; categoryIndex < categories.length; categoryIndex++)
-        {
+        for (var categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
             var categoryPlacementIndex = categoryIndex + 1;
             var category = categories[categoryIndex];
 
@@ -74,124 +70,136 @@ class Menu
             const categoryThumb = this.game.add.group();
             categoryThumb.add(thumb);
             categoryThumb.add(text);
-            
+
             thumb.inputEnabled = true;
             thumb.events.onInputDown.add(this.categorySelected.bind(this, [category]), this);
-            
+
             this.scrollingMap.addChild(categoryThumb);
 
             this.game.add.tween(categoryThumb).to({ y: '-10' }, 2000, Phaser.Easing.Cubic.InOut, true, Math.random() * 2000, -1, true);
 
             column++;
 
-            if ((categoryPlacementIndex % this.columns) == 0)
-            {
+            if ((categoryPlacementIndex % this.columns) == 0) {
                 column = 0;
                 row++;
             }
 
-            if ((categoryPlacementIndex % categoriesPerPage) == 0)
-            {
+            if ((categoryPlacementIndex % categoriesPerPage) == 0) {
                 page++;
                 column = 0;
                 row = 0;
             }
         }
-        
+
         this.fadeIn();
     }
-    createBackground()
-    {
+
+    createMuteButton() {
+
+        const unmuteButton = this.add.sprite(40, 40, 'unmute');
+        unmuteButton.anchor.setTo(0.5, 0.5);
+        unmuteButton.scale.setTo(0.3, 0.3);
+        unmuteButton.inputEnabled = true;
+        unmuteButton.visible = this.game.sound.mute;
+        unmuteButton.input.useHandCursor = true;
+        
+        const muteButton = this.add.sprite(40, 40, 'mute');
+        muteButton.anchor.setTo(0.5, 0.5);
+        muteButton.scale.setTo(0.3, 0.3);
+        muteButton.inputEnabled = true;
+        muteButton.visible = !this.game.sound.mute;
+        muteButton.input.useHandCursor = true;
+
+        unmuteButton.events.onInputUp.add(()=>{
+            muteButton.visible = true;
+            unmuteButton.visible = false;
+            this.game.sound.mute = false;
+        });
+        
+        muteButton.events.onInputDown.add(()=>{
+            unmuteButton.visible = true;
+            muteButton.visible = false;
+            this.game.sound.mute = true;
+        });
+    }
+
+    createBackground() {
         const background = this.add.sprite(0, -50, 'background');
         background.scale.setTo(0.5, 0.5);
     }
-    
-    createTitle()
-    {
+
+    createTitle() {
         const title = this.add.image(0, 0, 'title');
         title.x = this.game.width / 2;
         title.y = 70;
         title.scale.setTo(0.75);
-        title.anchor.setTo(0.5);        
+        title.anchor.setTo(0.5);
     }
-    
-    createNextButton()
-    {
+
+    createNextButton() {
         const rightArrow = this.add.sprite(this.game.width - 100, 100, 'rightArrow');
         rightArrow.anchor.setTo(0.5, 0.5);
         rightArrow.scale.setTo(0.5, 0.5);
         rightArrow.inputEnabled = true;
-        rightArrow.events.onInputDown.add(this.nextPage, this);
+        rightArrow.events.onInputUp.add(this.nextPage, this);
         rightArrow.input.useHandCursor = true;
         this.rightArrow = rightArrow;
     }
-    
-    createPrevButton()
-    {
+
+    createPrevButton() {
         const leftArrow = this.add.sprite(100, 100, 'leftArrow');
         leftArrow.anchor.setTo(0.5, 0.5);
         leftArrow.scale.setTo(0.5, 0.5);
         leftArrow.inputEnabled = true;
-        leftArrow.events.onInputDown.add(this.prevPage, this);
+        leftArrow.events.onInputUp.add(this.prevPage, this);
         leftArrow.input.useHandCursor = true;
         this.leftArrow = leftArrow;
     }
-    
-    categorySelected(category)
-    {
+
+    categorySelected(category) {
         this.play(category);
     }
-    
-    update()
-    {
+
+    update() {
         this.leftArrow.visible = true;
         this.rightArrow.visible = true;
 
-        if (this.currentPage == 0)
-        {
+        if (this.currentPage == 0) {
             this.leftArrow.visible = false;
         }
 
-        if ((this.currentPage + 1) == this.pages)
-        {
+        if ((this.currentPage + 1) == this.pages) {
             this.rightArrow.visible = false
         }
     }
-    thumbOver()
-    {
+    thumbOver() {
         this.scale.setTo(1.1, 1.1);
     }
 
-    thumbOut()
-    {
+    thumbOut() {
         this.scale.setTo(1, 1);
     }
 
-    nextPage()
-    {
-        if ((this.currentPage + 1) < this.pages)
-        {
+    nextPage() {
+        if ((this.currentPage + 1) < this.pages) {
             this.changePage(1);
         }
     }
 
-    prevPage()
-    {
-        if (this.currentPage != 0)
-        {
+    prevPage() {
+        if (this.currentPage != 0) {
             this.changePage(-1);
         }
     }
 
-    changePage(page)
-    {
+    changePage(page) {
         this.currentPage += page;
         this.pageText.text = "Select a Category (" + (this.currentPage + 1).toString() + " / " + this.pages + ")";
         this.game.add.tween(this.scrollingMap).to({ x: this.currentPage * -this.game.width }, 300, Phaser.Easing.Cubic.Out, true);
     }
-    
-    play(category)
-    {        
+
+    play(category) {
         const fadeBackground = this.game.add.graphics(0, 0);
         fadeBackground.beginFill(0xFFFFFF, 1);
         fadeBackground.drawRect(0, 0, this.game.width, this.game.height);
@@ -200,9 +208,9 @@ class Menu
 
         const backgroundTween = this.game.add.tween(fadeBackground);
         backgroundTween.to({ alpha: 1 }, 500, null);
-        backgroundTween.onComplete.add(()=>{
+        backgroundTween.onComplete.add(() => {
             this.stage.backgroundColor = '#FFFFFF';
-            this.game.state.start("Main", true, false, this.config.categories[category]);       
+            this.game.state.start("Main", true, false, this.config.categories[category]);
         });
         backgroundTween.start();
     }
