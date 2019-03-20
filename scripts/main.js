@@ -250,8 +250,8 @@ class Main {
             let wordText = this.make.text(0,0, word.word);
             wordText.font = 'Arial';
             wordText.fontSize = 25;
-            wordText.fill = '#FFFFFF';
-            wordText.stroke = '#000000';
+            wordText.fill = '#000000';
+            wordText.stroke = '#FFFFFF';
             wordText.strokeThickness = 3;
 
             let translatedText = this.make.text(0,30, `${translation}`, { font: "bold 15px Arial", autoUpperCase:true, fill: "#000000" });
@@ -510,7 +510,8 @@ class Main {
         //  result contains the sprites of the letters, the word, etc.
         const word = this.wordList[result.word]
 
-        word.text.tint = highlightTint;
+        word.text.fill = '#' + highlightTint.toString(16);
+        word.text.stroke = '#000000';
 
         this.selectFeatureWord(word.text);
 
@@ -586,8 +587,9 @@ class Main {
             let orientation = entry.orientation;
 
             const word = this.wordList[entry.word];
-            word.text.tint = highlightTint;
-
+            word.text.fill = '#' + highlightTint.toString(16);
+            word.text.stroke = '#000000';
+            
             entry.wordSplit.forEach((letter, index)=>{
 
                 if(index > 0)
@@ -637,11 +639,7 @@ class Main {
 
                 let tile = this.grid.getChildAt(tileIndex);
 
-                if (tile.tint === 16777215 )
-                {
-                    tile.tint = highlightTint;
-                }
-
+                tile.tint = highlightTint;
             });
         })
     }

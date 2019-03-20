@@ -23,37 +23,37 @@ let defaultGameConfig = {
     categories: {
         "People": [
             {
-                word: "łuk’é",
+                word: "Charlie",
                 translation: "translation",
                 audio: 'assets/sounds/sample.mp3',
                 image: 'assets/images/bear.jpg'
             },
             {
-                word: "łuk’é",
+                word: "Bodman",
                 translation: "translation",
                 audio: 'assets/sounds/sample.mp3',
                 image: 'assets/images/bear.jpg'
             },
             {
-                word: "łuk’é",
+                word: "Dan",
                 translation: "translation",
                 audio: 'assets/sounds/sample.mp3',
                 image: 'assets/images/bear.jpg'
             },
             {
-                word: "łuk’é",
+                word: "Yona",
                 translation: "translation",
                 audio: 'assets/sounds/sample.mp3',
                 image: 'assets/images/bear.jpg'
             },
             {
-                word: "łuk’é",
+                word: "Foo",
                 translation: "translation",
                 audio: 'assets/sounds/sample.mp3',
                 image: 'assets/images/bear.jpg'
             },
             {
-                word: "łuk’é",
+                word: "Bar",
                 translation: "translation",
                 audio: 'assets/sounds/sample.mp3',
                 image: 'assets/images/bear.jpg'
