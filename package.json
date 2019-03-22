@@ -1,6 +1,6 @@
 {
   "name": "@fpcc/fv-game-wordsearch",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Wordsearch game for FirstVoices.com",
   "main": "scripts/game.js",
   "scripts": {
