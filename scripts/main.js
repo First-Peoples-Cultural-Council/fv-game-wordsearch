@@ -82,7 +82,6 @@ class Main {
     this.words = wordsArray
     this.wordMap = wordMap
   }
-  2293
 
   preload() {
     const letters = this.letters
