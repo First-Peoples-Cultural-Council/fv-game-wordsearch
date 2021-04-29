@@ -1,6 +1,6 @@
 {
   "name": "@fpcc/fv-game-wordsearch",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Wordsearch game for FirstVoices.com",
   "main": "scripts/game.js",
   "scripts": {
@@ -21,7 +21,8 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "expose-loader": "^0.7.5",
+    "expose-loader": "^1.0.3",
+    "file-loader": "^6.2.0",
     "global": "^4.3.1",
     "lodash": "^4.17.2",
     "merge-stream": "^1.0.1",

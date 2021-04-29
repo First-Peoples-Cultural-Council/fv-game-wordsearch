@@ -8,8 +8,7 @@ class Boot {
     }
 
     preload() {
-        this.game.load.image('loading', this.config.images.preloaderLoading);
-        this.game.load.image('brand', this.config.images.preloaderLogo);
+        this.game.loadAssets('boot');
     }
 
     startPreloadScene() {

@@ -1,5 +1,4 @@
 import configManager from './config';
-
 class Preload
 {
 
@@ -8,7 +7,7 @@ class Preload
         this.config = configManager.getConfig();
 
         this.loadingBar = this.game.make.sprite(this.game.world.centerX, 500, "loading");
-        this.logo = this.game.make.sprite(this.game.world.centerX, 250, 'brand');
+        this.logo = this.game.make.sprite(this.game.world.centerX, 250, 'logo');
         this.status = this.game.make.text(this.game.world.centerX, 450, 'Loading...', { fill: 'black' });
 
         this.centerObjects([this.logo, this.status, this.loadingBar]);
@@ -29,18 +28,10 @@ class Preload
         this.game.add.existing(this.status);
         this.game.load.setPreloadSprite(this.loadingBar);
 
+        // Load images for the preload state
+        this.game.loadAssets('preload');
+
         const config = this.config;
-        this.load.image('transp', config.images.transp);
-        this.load.image('tile', config.images.tile);
-        this.load.image('playAudio', config.images.playAudio);
-        this.load.image('background', config.images.background);
-        this.load.image('title', config.images.title);
-        this.load.image('welldone', config.images.welldone);
-        this.load.image('cloud', config.images.cloud);
-        this.load.image('rightArrow', config.images.rightArrow);
-        this.load.image('leftArrow', config.images.leftArrow);
-        this.load.image('unmute', config.images.unmute);
-        this.load.image('mute', config.images.mute);
 
         if (configManager.getConfigOptions()?.categories) {
             // Preload entries for categories
@@ -107,7 +98,6 @@ class Preload
         } else {
             this.fade("Main");
         }
-        
     }
 }
 

@@ -295,7 +295,7 @@ class Main {
     this.input.addMoveCallback(this.updateDrawLine, this)
 
     //  The Well Done sprite that appears on completion
-    this.wellDone = this.add.sprite(0, 0, 'welldone')
+    this.wellDone = this.add.sprite(0, 0, 'well_done')
     this.wellDone.centerX = this.world.centerX
     this.wellDone.visible = false
 
@@ -420,7 +420,7 @@ class Main {
       wordWrap: true,
     })
 
-    const playAudio = this.make.image(0, 215, 'playAudio')
+    const playAudio = this.make.image(0, 215, 'play_audio')
     playAudio.width = 25
     playAudio.height = 25
     playAudio.inputEnabled = true

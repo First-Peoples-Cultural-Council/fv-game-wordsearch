@@ -12,6 +12,7 @@ const p2 = path.join(phaserModule, "build/custom/p2.js")
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+    //devtool: '#source-map',
     mode: "development",
     devServer: {
 	    port: 3010
@@ -44,33 +45,46 @@ module.exports = {
                 use: ["style-loader", "css-loader"]
             },
             {
+                test: /\.(png|jpg|gif|svg|pvr|pkm|mp3|wav)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'assets/[name].[ext]?[hash]',
+                            esModule: false,
+                        },
+                    },
+                ],
+            },
+            {
                 test: /pixi\.js/,
-                use: {
-                    loader: "expose-loader",
-                    query: "PIXI"
-                }
+                loader: "expose-loader",
+                options: {
+                    exposes: ["PIXI"],
+                },
             },
             {
                 test: /phaser-split\.js$/,
-                use: {
-                    loader: "expose-loader",
-                    query: "Phaser"
-                }
+                loader: "expose-loader",
+                options: {
+                    exposes: ["Phaser"],
+                },
             },
             {
                 test: /p2\.js/,
-                use: {
-                    loader: "expose-loader",
-                    query: "p2"
-                }
+                loader: "expose-loader",
+                options: {
+                    exposes: ["p2"],
+                },
             }
         ]
     },
     resolve: {
         alias: {
+            assets: path.join(__dirname, 'www/assets'),
             phaser: phaser,
             pixi: pixi,
-            p2: p2
+            p2: p2,
         }
     }
 }

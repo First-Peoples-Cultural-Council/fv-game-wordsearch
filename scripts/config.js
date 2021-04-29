@@ -3,20 +3,21 @@ let defaultGameConfig = {
     wordFindScript: 'assets/libs/wordfind.js',
   },
 
-  images: {
-    transp: 'assets/images/transp.png',
-    preloaderLoading: 'assets/images/loading.png',
-    preloaderLogo: 'assets/images/logo.png',
-    tile: 'assets/images/tile.png',
-    playAudio: 'assets/images/play_audio.png',
-    background: 'assets/images/background.png',
-    title: 'assets/images/title.png',
-    welldone: 'assets/images/well-done.png',
-    cloud: 'assets/images/cloud.png',
-    rightArrow: 'assets/images/right_arrow.png',
-    leftArrow: 'assets/images/left_arrow.png',
-    mute: 'assets/images/mute.png',
-    unmute: 'assets/images/unmute.png',
+  assets: {
+    boot: ['images/loading.png', 'images/logo.png'],
+    preload: [
+      'images/background.png',
+      'images/transp.png',
+      'images/tile.png',
+      'images/play_audio.png',
+      'images/title.png',
+      'images/well_done.png',
+      'images/cloud.png',
+      'images/right_arrow.png',
+      'images/left_arrow.png',
+      'images/mute.png',
+      'images/unmute.png'
+    ]
   },
 
   options: {
@@ -213,6 +214,13 @@ let gameConfig = {}
 
 export default {
   setConfig: (config) => {
+    if (config?.assets) {
+      for (const [key, value] of Object.entries(config?.assets)) {
+        // Merge assets for each state
+        config.assets[key] = defaultGameConfig.assets[key].concat(value);
+      }
+    }
+
     gameConfig = Object.assign({}, defaultGameConfig, config, gameConfig)
   },
 
