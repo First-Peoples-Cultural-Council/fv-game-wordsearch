@@ -13,6 +13,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     mode: "development",
+    devServer: {
+	    port: 3010
+    },
     entry: {
         app: path.resolve(appRootPath, "index.js"),
         vendor: ["pixi", "p2", "phaser"]
@@ -27,7 +30,14 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/, exclude: /node_modules/, use: ["babel-loader"]
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                      presets: ['@babel/preset-env']
+                    }
+                }
             },
             {
                 test: /\.css$/,

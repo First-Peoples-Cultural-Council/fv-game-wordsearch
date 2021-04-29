@@ -19,6 +19,10 @@ let defaultGameConfig = {
     unmute: 'assets/images/unmute.png',
   },
 
+  options: {
+    categories: false
+  },
+
   letters: [
     'c',
     'h',
@@ -27,6 +31,7 @@ let defaultGameConfig = {
     'l',
     'i',
     'e',
+    'zz',
     'b',
     'o',
     'd',
@@ -50,6 +55,57 @@ let defaultGameConfig = {
     'u',
     'k’',
     'é',
+  ],
+  words:[
+    {
+      word: 'Charlie',
+      characters: ['C', 'h', 'a', 'r', 'l', 'i', 'e'],
+      translation: 'translation',
+      audio: 'assets/sounds/sample.mp3',
+      image: 'assets/images/bear.jpg',
+    },
+    {
+      word: 'Bodman',
+      characters: ['B', 'o', 'd', 'm', 'a', 'n'],
+      translation: 'translation',
+      audio: 'assets/sounds/sample.mp3',
+      image: 'assets/images/bear.jpg',
+    },
+    {
+      word: 'Dan',
+      characters: ['D', 'a', 'n'],
+      translation: 'translation',
+      audio: 'assets/sounds/sample.mp3',
+      image: 'assets/images/bear.jpg',
+    },
+    {
+      word: 'Yona',
+      characters: ['Y', 'o', 'n', 'a'],
+      translation: 'translation',
+      audio: 'assets/sounds/sample.mp3',
+      image: 'assets/images/bear.jpg',
+    },
+    {
+      word: 'Foo',
+      characters: ['F', 'o', 'o'],
+      translation: 'translation',
+      audio: 'assets/sounds/sample.mp3',
+      image: 'assets/images/bear.jpg',
+    },
+    {
+      word: 'Bar',
+      characters: ['B', 'a', 'r'],
+      translation: 'translation',
+      audio: 'assets/sounds/sample.mp3',
+      image: 'assets/images/bear.jpg',
+    },
+    {
+      word: 'Bazz',
+      characters: ['B', 'a', 'r', 'zz'],
+      translation: 'translation',
+      audio: 'assets/sounds/sample.mp3',
+      image: 'assets/images/bear.jpg',
+    },
   ],
   categories: {
     People: [
@@ -166,5 +222,9 @@ export default {
 
   getConfig: () => {
     return gameConfig
+  },
+
+  getConfigOptions: () => {
+    return gameConfig?.options
   },
 }

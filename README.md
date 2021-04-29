@@ -18,4 +18,4 @@ yarn run develop
 
 #### Step 3 - Run in browser
 
-Visit http://localhost:8080/ in your browser
+Visit http://localhost:3010/ in your browser

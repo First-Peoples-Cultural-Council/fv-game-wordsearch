@@ -3,10 +3,12 @@ import wordfind from './libs/wordfind'
 
 class Main {
   init(categoryWords) {
-    this.words = categoryWords
-
     this.config = configManager.getConfig()
+    this.categoriesEnabled = configManager.getConfigOptions()?.categories;
 
+    // Switch between words from categories or fed directly
+    this.words = (this.categoriesEnabled) ? categoryWords : this.config.words;
+    
     //  This is your word list. Add or remove any words you like in here.
     //  The words mustn't contain any spaces or numbers.
 
@@ -57,6 +59,10 @@ class Main {
 
     this.foundWords = []
     this.featureWord = null
+
+    // Sound controls
+    this.game.sound.mute = false;
+
     this.mapWords()
   }
 
@@ -293,7 +299,10 @@ class Main {
     this.wellDone.centerX = this.world.centerX
     this.wellDone.visible = false
 
-    this.createMenuButton()
+    if (this.categoriesEnabled) {
+      this.createMenuButton()
+    }
+
     this.createRevealSolution()
     this.createMuteButton()
 
@@ -305,14 +314,14 @@ class Main {
     unmuteButton.anchor.setTo(0.5, 0.5)
     unmuteButton.scale.setTo(0.3, 0.3)
     unmuteButton.inputEnabled = true
-    unmuteButton.visible = !this.game.sound.mute
+    unmuteButton.visible = this.game.sound.mute
     unmuteButton.input.useHandCursor = true
 
     const muteButton = this.add.sprite(40, 40, 'mute')
     muteButton.anchor.setTo(0.5, 0.5)
     muteButton.scale.setTo(0.3, 0.3)
     muteButton.inputEnabled = true
-    muteButton.visible = this.game.sound.mute
+    muteButton.visible = !this.game.sound.mute
     muteButton.input.useHandCursor = true
 
     unmuteButton.events.onInputUp.add(() => {

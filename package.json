@@ -1,6 +1,6 @@
 {
   "name": "@fpcc/fv-game-wordsearch",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Wordsearch game for FirstVoices.com",
   "main": "scripts/game.js",
   "scripts": {
@@ -12,6 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.13.15",
     "babel-loader": "^8.0.5",
     "css-loader": "^2.1.0",
     "html-webpack-plugin": "^3.2.0",

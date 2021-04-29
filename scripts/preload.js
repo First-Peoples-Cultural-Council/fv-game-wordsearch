@@ -42,16 +42,26 @@ class Preload
         this.load.image('unmute', config.images.unmute);
         this.load.image('mute', config.images.mute);
 
-        for (var category in config.categories)
-        {
-            var words = config.categories[category];
-            
-            words.forEach((word) =>
+        if (configManager.getConfigOptions()?.categories) {
+            // Preload entries for categories
+            for (var category in config.categories)
             {
+                var words = config.categories[category];
+                
+                words.forEach((word) =>
+                {
+                    this.load.audio(word.word, word.audio);
+                    this.load.image(word.word, word.image)
+                });
+            }
+        } else {
+            // Preload entries for words
+            config.words.forEach((word)=>{
                 this.load.audio(word.word, word.audio);
                 this.load.image(word.word, word.image)
             });
         }
+
     }
 
     fade(nextState)
@@ -92,7 +102,12 @@ class Preload
 
     create()
     {
-        this.fade("Menu");
+        if (configManager.getConfigOptions()?.categories) {
+            this.fade("Menu");
+        } else {
+            this.fade("Main");
+        }
+        
     }
 }
 
